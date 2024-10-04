@@ -14,6 +14,7 @@ import {
   Smartphone,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function Component() {
   return (
@@ -32,7 +33,9 @@ export default function Component() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button>Get Started</Button>
+                <Link href="/dashboard">
+                  <Button>Get Started</Button>
+                </Link>
                 <Button variant="outline">Learn More</Button>
               </div>
             </div>
@@ -43,6 +46,7 @@ export default function Component() {
             <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter text-black sm:text-5xl">
               Key Features
             </h2>
+            1a
             <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <Card className="w-full">
                 <CardHeader>

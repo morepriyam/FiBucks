@@ -3,7 +3,7 @@ import { DollarSign } from "lucide-react";
 export default function Navbar() {
   return (
     <header className="flex h-14 items-center px-4 lg:px-6">
-      <a className="flex items-center justify-center" href="#">
+      <a className="flex items-center justify-center" href="/">
         <DollarSign className="h-6 w-6" />
         <span className="sr-only">FiBucks</span>
       </a>
