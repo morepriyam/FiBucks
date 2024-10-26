@@ -11,9 +11,8 @@ const signupSchema = zod.object({
   email: zod.string().email().max(35),
 });
 
-connect();
-
-async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
+  await connect();
   try {
     const reqBody = await req.json();
 
@@ -50,6 +49,7 @@ async function POST(req: NextRequest) {
       user: dbUser,
     });
   } catch (error: any) {
+    console.error("Error creating user:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

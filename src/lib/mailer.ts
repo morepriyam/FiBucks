@@ -55,7 +55,7 @@ export default async function sendMail({
     };
 
     const mailOptions = {
-      from: process.env.FROM_EMAIL || "no-reply@fibucks.com",
+      from: process.env.FROM_EMAIL || "info@demomailtrap.com",
       to: email,
       subject: emailSubjects[emailType],
       text: `Hello! Please click the link provided to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}.`,
