@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-export async function GET(res: NextResponse) {
-  return NextResponse.json({
-    message: "Hello from the API",
-    success: true,
-  });
+
+export async function GET(req: NextRequest) {
+  try {
+    return NextResponse.json({
+      message: "Hello from the API",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error getting data:", error);
+  }
+  // Changed 'res' to 'req' and type to NextRequest
 }
