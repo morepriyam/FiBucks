@@ -1,36 +1,24 @@
+import React from "react";
+
 import { DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 
-export default function SignupPage() {
+export default function page() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col text-white">
       <main className="flex flex-1 items-center justify-center px-4 py-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <DollarSign className="mx-auto h-12 w-12" />
-            <h2 className="mt-6 text-3xl font-bold">Create your account</h2>
+            <h2 className="mt-6 text-3xl font-bold">Sign in to your account</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Sign up to start managing your finances with FiBucks
+              Welcome back to FiBucks - manage your finances with ease
             </p>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <div className="space-y-4 rounded-md shadow-sm">
-              <div>
-                <Label htmlFor="name" className="sr-only">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  className="w-full"
-                  placeholder="Name"
-                />
-              </div>
               <div>
                 <Label htmlFor="email-address" className="sr-only">
                   Email address
@@ -53,7 +41,7 @@ export default function SignupPage() {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                   required
                   className="w-full"
                   placeholder="Password"
@@ -61,21 +49,45 @@ export default function SignupPage() {
               </div>
             </div>
 
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                <Label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-white"
+                >
+                  Remember me
+                </Label>
+              </div>
+
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-primary text-white hover:underline"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+            </div>
+
             <div>
-              <Link href="">
-                <Button type="submit" className="w-full bg-gray-600">
-                  Sign up
-                </Button>{" "}
-              </Link>
+              <Button type="submit" className="w-full bg-gray-600">
+                Sign in
+              </Button>
             </div>
           </form>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
-            Already have an account?{" "}
+          <p className="mt-2 text-center text-sm text-muted-foreground text-white">
+            Don't have an account?{" "}
             <a
-              href="/login"
-              className="font-medium underline-offset-4 hover:underline"
+              href="/signup"
+              className="font-medium text-primary text-white hover:underline"
             >
-              Log in
+              Sign up
             </a>
           </p>
         </div>
