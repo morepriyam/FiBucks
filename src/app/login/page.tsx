@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function page() {
+export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col text-white">
       <main className="flex flex-1 items-center justify-center px-4 py-8">

@@ -1,10 +1,59 @@
+"use client";
+
+import { useState } from "react";
 import { DollarSign } from "lucide-react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
-export default function SignupPage() {
+export default function SignUpPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setIsLoading(true);
+
+    const formData = new FormData(form);
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const response = await axios.post("/api/users/signup", {
+        username,
+        email,
+        password,
+      });
+      toast({
+        title: "Success",
+        description: response.data.message,
+      });
+
+      form.reset();
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast({
+          title: "Error",
+          description:
+            error.response.data.message || "An error occurred during sign up.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex flex-1 items-center justify-center px-4 py-8">
@@ -16,19 +65,19 @@ export default function SignupPage() {
               Sign up to start managing your finances with FiBucks
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4 rounded-md shadow-sm">
               <div>
                 <Label htmlFor="name" className="sr-only">
                   Name
                 </Label>
                 <Input
-                  id="name"
-                  name="name"
+                  id="username"
+                  name="username"
                   type="text"
                   required
                   className="w-full"
-                  placeholder="Name"
+                  placeholder="Username"
                 />
               </div>
               <div>
@@ -62,21 +111,19 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <Link href="">
-                <Button type="submit" className="w-full bg-gray-600">
-                  Sign up
-                </Button>{" "}
-              </Link>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Signing up..." : "Sign up"}
+              </Button>
             </div>
           </form>
           <p className="mt-2 text-center text-sm text-muted-foreground">
             Already have an account?{" "}
-            <a
+            <Link
               href="/login"
               className="font-medium underline-offset-4 hover:underline"
             >
               Log in
-            </a>
+            </Link>
           </p>
         </div>
       </main>

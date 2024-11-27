@@ -9,5 +9,4 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error("Error getting data:", error);
   }
-  // Changed 'res' to 'req' and type to NextRequest
 }
