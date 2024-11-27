@@ -41,13 +41,10 @@ function EmailVerificationContent() {
       try {
         const response = await axios.get("/api/verify", {
           params: { userId, token },
+          withCredentials: true,
         });
 
         if (response.status === 200) {
-          const { accessToken, refreshToken } = response.data;
-          localStorage.setItem("accessToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-
           setStatus("success");
           setMessage("Email verified successfully!");
           setTimeout(() => {

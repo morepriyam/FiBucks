@@ -46,15 +46,28 @@ export async function GET(req: NextRequest) {
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
     await user.save();
-
-    return NextResponse.json(
-      {
-        message: "Email verified successfully",
-        accessToken,
-        refreshToken,
-      },
+    const response = NextResponse.json(
+      { message: "Email verified successfully" },
       { status: 200 },
     );
+
+    response.cookies.set("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 15 * 60,
+      sameSite: "strict",
+    });
+
+    response.cookies.set("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60,
+      sameSite: "strict",
+    });
+
+    return response;
   } catch (error: any) {
     console.error("Error verifying email:", error);
     return NextResponse.json(
