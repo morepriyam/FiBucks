@@ -1,8 +1,8 @@
 "use client";
 
+import { Suspense, useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 import { EmailVerificationStatus } from "./email-verification-status";
@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function EmailVerificationPage() {
+function EmailVerificationContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const userId = searchParams.get("userId");
@@ -67,24 +67,30 @@ export default function EmailVerificationPage() {
   }, [userId, token, router]);
 
   return (
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle className="text-center text-2xl font-bold">
+          Email Verification
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <EmailVerificationStatus status={status} message={message} />
+      </CardContent>
+      <CardFooter className="flex justify-center">
+        {status === "error" && (
+          <Button onClick={() => router.push("/login")}>Return to Login</Button>
+        )}
+      </CardFooter>
+    </Card>
+  );
+}
+
+export default function EmailVerificationPage() {
+  return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold">
-            Email Verification
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <EmailVerificationStatus status={status} message={message} />
-        </CardContent>
-        <CardFooter className="flex justify-center">
-          {status === "error" && (
-            <Button onClick={() => router.push("/login")}>
-              Return to Login
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
+      <Suspense fallback={<div>Loading...</div>}>
+        <EmailVerificationContent />
+      </Suspense>
     </div>
   );
 }
