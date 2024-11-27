@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,14 +6,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   DollarSign,
-  CreditCard,
   Wallet,
   ArrowUpRight,
   ArrowDownRight,
-  Plus,
 } from "lucide-react";
 
 export default function FiBucksDashboard() {
