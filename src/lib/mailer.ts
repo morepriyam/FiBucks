@@ -1,4 +1,4 @@
-import User from "@/models/userModel";
+import User from "../models/userModel";
 import nodemailer, { Transporter } from "nodemailer";
 import { v4 as uuidv4 } from "uuid";
 

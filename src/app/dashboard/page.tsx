@@ -6,12 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import {
-  DollarSign,
-  Wallet,
-  ArrowUpRight,
-  ArrowDownRight,
-} from "lucide-react";
+import { DollarSign, Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
 
 export default function FiBucksDashboard() {
   return (
