@@ -69,24 +69,25 @@ export default function SignUpPage() {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4 rounded-md shadow-sm">
               <div>
-                <Label htmlFor="name" className="sr-only">
-                  Name
+                <Label htmlFor="username" className="sr-only">
+                  Username
                 </Label>
                 <Input
                   id="username"
                   name="username"
                   type="text"
+                  autoComplete="username"
                   required
                   className="w-full"
                   placeholder="Username"
                 />
               </div>
               <div>
-                <Label htmlFor="email-address" className="sr-only">
+                <Label htmlFor="email" className="sr-only">
                   Email address
                 </Label>
                 <Input
-                  id="email-address"
+                  id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
