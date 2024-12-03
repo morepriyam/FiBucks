@@ -48,7 +48,7 @@ function EmailVerificationContent() {
           setStatus("success");
           setMessage("Email verified successfully!");
           setTimeout(() => {
-            router.push("/dashboard");
+            router.push("/financeinputs");
           }, 3000);
         }
       } catch (err: any) {
