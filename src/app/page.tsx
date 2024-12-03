@@ -45,7 +45,6 @@ export default function LandingPage() {
             <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter text-black sm:text-5xl">
               Key Features
             </h2>
-            1a
             <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <Card className="w-full">
                 <CardHeader>

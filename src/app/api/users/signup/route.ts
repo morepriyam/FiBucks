@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       if (dbError.code === 11000) {
         const field = Object.keys(dbError.keyValue)[0];
         return NextResponse.json(
-          { message: `${field.toUpperCase()} already exists` },
+          { message: `${field} already exists` },
           { status: 409 },
         );
       }

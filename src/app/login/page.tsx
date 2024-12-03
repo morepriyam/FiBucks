@@ -1,13 +1,64 @@
-import React from "react";
+"use client";
 
+import { useState } from "react";
 import { DollarSign } from "lucide-react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setIsLoading(true);
+
+    const formData = new FormData(form);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const response = await axios.post(
+        "/api/users/login",
+        { email, password },
+        { withCredentials: true },
+      );
+      toast({
+        title: "Success",
+        description: "Logged in successfully!",
+      });
+
+      form.reset();
+
+      router.push("/dashboard");
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast({
+          title: "Error",
+          description: error.response.data.error || "Login failed.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen flex-col text-white">
+    <div className="flex min-h-screen flex-col">
       <main className="flex flex-1 items-center justify-center px-4 py-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
@@ -17,7 +68,7 @@ export default function LoginPage() {
               Welcome back to FiBucks - manage your finances with ease
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4 rounded-md shadow-sm">
               <div>
                 <Label htmlFor="email-address" className="sr-only">
@@ -49,46 +100,20 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <Input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                />
-                <Label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-white"
-                >
-                  Remember me
-                </Label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-primary text-white hover:underline"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-
             <div>
-              <Button type="submit" className="w-full bg-gray-600">
-                Sign in
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </div>
           </form>
-          <p className="mt-2 text-center text-sm text-muted-foreground text-white">
+          <p className="mt-2 text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
-            <a
+            <Link
               href="/signup"
-              className="font-medium text-primary text-white hover:underline"
+              className="font-medium underline-offset-4 hover:underline"
             >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </main>
