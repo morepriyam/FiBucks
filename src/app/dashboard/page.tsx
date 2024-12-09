@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import axios from "axios";
 import { FormSchema } from "@/models/financeSchema";
+import { Loader } from "@/components/global/Loader";
 
 const COLORS = [
   "#0088FE",
@@ -46,7 +47,7 @@ const FiBucksDashboard: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader />;
   if (!data) return <div>Error loading data. Please try again.</div>;
 
   // Calculations
