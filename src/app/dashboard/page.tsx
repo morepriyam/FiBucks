@@ -1,149 +1,250 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+"use client";
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { DollarSign, Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import axios from "axios";
+import { FormSchema } from "@/models/financeSchema"
 
-export default function FiBucksDashboard() {
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
+
+const FiBucksDashboard: React.FC = () => {
+  const [data, setData] = useState<FormSchema | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/api/users/financeinput", {
+        withCredentials: true,
+      });
+      setData(response.data as FormSchema);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>Error loading data. Please try again.</div>;
+  }
+
+  const totalAssets = [
+    ...data.depositoryAccounts,
+    ...data.investments,
+    ...data.realEstate,
+    ...data.others,
+  ].reduce((sum, item) => sum + parseInt(item.value || item.balance), 0);
+
+  const totalLiabilities = [...data.creditCards, ...data.loans].reduce(
+    (sum, item) => sum + parseInt(item.balance),
+    0
+  );
+
+  const netWorth = totalAssets - totalLiabilities;
+
+  const assetAllocation = [
+    {
+      name: "Depository",
+      value: data.depositoryAccounts.reduce((sum, acc) => sum + parseInt(acc.balance), 0),
+    },
+    {
+      name: "Investments",
+      value: data.investments.reduce((sum, inv) => sum + parseInt(inv.value), 0),
+    },
+    {
+      name: "Real Estate",
+      value: data.realEstate.reduce((sum, re) => sum + parseInt(re.value), 0),
+    },
+    {
+      name: "Others",
+      value: data.others.reduce((sum, other) => sum + parseInt(other.value), 0),
+    },
+  ];
+
+  const creditCardUsage = data.creditCards.map((card) => ({
+    name: card.name,
+    usage: (parseInt(card.balance) / parseInt(card.limit)) * 100,
+  }));
+
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <main className="flex-1 px-4 py-6 lg:px-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Balance
-              </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$12,345.67</div>
-              <p className="text-xs text-muted-foreground">
-                +2.5% from last month
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Income</CardTitle>
-              <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$4,567.89</div>
-              <p className="text-xs text-muted-foreground">
-                +5% from last month
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Expenses</CardTitle>
-              <ArrowDownRight className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$3,210.45</div>
-              <p className="text-xs text-muted-foreground">
-                -1.5% from last month
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Savings</CardTitle>
-              <Wallet className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$1,357.44</div>
-              <p className="text-xs text-muted-foreground">
-                +10% from last month
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-          <Card className="col-span-4">
-            <CardHeader>
-              <CardTitle>Recent Transactions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  { name: "Grocery Store", amount: -75.5, date: "2023-06-15" },
-                  { name: "Salary Deposit", amount: 3000, date: "2023-06-14" },
-                  { name: "Electric Bill", amount: -120.3, date: "2023-06-13" },
-                  {
-                    name: "Online Shopping",
-                    amount: -49.99,
-                    date: "2023-06-12",
-                  },
-                  { name: "Restaurant", amount: -65.75, date: "2023-06-11" },
-                ].map((transaction, index) => (
-                  <div key={index} className="flex items-center">
-                    <div
-                      className={`${transaction.amount > 0 ? "text-green-500" : "text-red-500"} mr-4 h-4 w-4`}
-                    >
-                      {transaction.amount > 0 ? (
-                        <ArrowUpRight />
-                      ) : (
-                        <ArrowDownRight />
-                      )}
-                    </div>
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {transaction.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {transaction.date}
-                      </p>
-                    </div>
-                    <div
-                      className={`font-medium ${transaction.amount > 0 ? "text-green-500" : "text-red-500"}`}
-                    >
-                      {transaction.amount > 0 ? "+" : ""}
-                      {transaction.amount.toFixed(2)}
-                    </div>
-                  </div>
-                ))}
+    <div className="p-6 space-y-6">
+      <h1 className="text-3xl font-bold">Financial Dashboard</h1>
+
+      {/* Summary Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Net Worth</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">${netWorth.toLocaleString()}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Total Assets</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">${totalAssets.toLocaleString()}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Total Liabilities</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">${totalLiabilities.toLocaleString()}</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Visualization Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Asset Allocation</CardTitle>
+          </CardHeader>
+          <CardContent className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={assetAllocation}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                >
+                  {assetAllocation.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Credit Card Usage</CardTitle>
+          </CardHeader>
+          <CardContent className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={creditCardUsage}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="usage" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Detailed Sections */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Credit Cards</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {data.creditCards.map((card, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span>{card.name} (*{card.lastFourDigits})</span>
+                <span>${parseInt(card.balance).toLocaleString()} / ${parseInt(card.limit).toLocaleString()}</span>
               </div>
-            </CardContent>
-          </Card>
-          <Card className="col-span-3">
-            <CardHeader>
-              <CardTitle>Budget Overview</CardTitle>
-              <CardDescription>Your monthly budget breakdown</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {[
-                { category: "Housing", spent: 1200, budget: 1500 },
-                { category: "Food", spent: 450, budget: 500 },
-                { category: "Transportation", spent: 200, budget: 300 },
-                { category: "Entertainment", spent: 150, budget: 200 },
-              ].map((item, index) => (
-                <div key={index} className="space-y-2">
-                  <div className="flex items-center">
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {item.category}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        ${item.spent} / ${item.budget}
-                      </p>
-                    </div>
-                    <div className="text-sm font-medium">
-                      {Math.round((item.spent / item.budget) * 100)}%
-                    </div>
-                  </div>
-                  <Progress value={(item.spent / item.budget) * 100} />
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-      </main>
+              <Progress value={(parseInt(card.balance) / parseInt(card.limit)) * 100} />
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Depository Accounts</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data.depositoryAccounts.map((account, index) => (
+              <div key={index} className="flex justify-between items-center mb-2">
+                <span>{account.name}</span>
+                <span>${parseInt(account.balance).toLocaleString()}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Investments</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data.investments.map((investment, index) => (
+              <div key={index} className="flex justify-between items-center mb-2">
+                <span>{investment.name}</span>
+                <span>${parseInt(investment.value).toLocaleString()}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Loans</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data.loans.map((loan, index) => (
+              <div key={index} className="flex justify-between items-center mb-2">
+                <span>{loan.name}</span>
+                <span>${parseInt(loan.balance).toLocaleString()}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Real Estate</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data.realEstate.map((property, index) => (
+              <div key={index} className="flex justify-between items-center mb-2">
+                <span>{property.address}</span>
+                <span>${parseInt(property.value).toLocaleString()}</span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Other Assets</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {data.others.map((item, index) => (
+            <div key={index} className="flex justify-between items-center mb-2">
+              <span>{item.name}</span>
+              <span>${parseInt(item.value).toLocaleString()}</span>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
+
+export default FiBucksDashboard;
