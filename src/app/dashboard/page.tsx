@@ -2,11 +2,28 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 import axios from "axios";
-import { FormSchema } from "@/models/financeSchema"
+import { FormSchema } from "@/models/financeSchema";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#8884D8",
+  "#82CA9D",
+];
 
 const FiBucksDashboard: React.FC = () => {
   const [data, setData] = useState<FormSchema | null>(null);
@@ -29,58 +46,70 @@ const FiBucksDashboard: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (!data) return <div>Error loading data. Please try again.</div>;
 
-  if (!data) {
-    return <div>Error loading data. Please try again.</div>;
-  }
+  // Calculations
+  const totalLiabilities = [
+    ...(data?.creditCards || []),
+    ...(data?.loans || []),
+  ].reduce(
+    (sum, item) => ("balance" in item ? sum + Number(item.balance) : sum),
+    0,
+  );
 
   const totalAssets = [
-    ...data.depositoryAccounts,
-    ...data.investments,
-    ...data.realEstate,
-    ...data.others,
-  ].reduce((sum, item) => sum + parseInt(item.value || item.balance), 0);
-
-  const totalLiabilities = [...data.creditCards, ...data.loans].reduce(
-    (sum, item) => sum + parseInt(item.balance),
-    0
-  );
+    ...(data?.depositoryAccounts || []),
+    ...(data?.investments || []),
+    ...(data?.realEstate || []),
+    ...(data?.others || []),
+  ].reduce((sum, item) => {
+    if ("value" in item) return sum + Number(item.value);
+    if ("balance" in item) return sum + Number(item.balance);
+    return sum;
+  }, 0);
 
   const netWorth = totalAssets - totalLiabilities;
 
   const assetAllocation = [
     {
       name: "Depository",
-      value: data.depositoryAccounts.reduce((sum, acc) => sum + parseInt(acc.balance), 0),
+      value:
+        data?.depositoryAccounts?.reduce(
+          (sum, acc) => sum + Number(acc.balance),
+          0,
+        ) || 0,
     },
     {
       name: "Investments",
-      value: data.investments.reduce((sum, inv) => sum + parseInt(inv.value), 0),
+      value:
+        data?.investments?.reduce((sum, inv) => sum + Number(inv.value), 0) ||
+        0,
     },
     {
       name: "Real Estate",
-      value: data.realEstate.reduce((sum, re) => sum + parseInt(re.value), 0),
+      value:
+        data?.realEstate?.reduce((sum, re) => sum + Number(re.value), 0) || 0,
     },
     {
       name: "Others",
-      value: data.others.reduce((sum, other) => sum + parseInt(other.value), 0),
+      value:
+        data?.others?.reduce((sum, other) => sum + Number(other.value), 0) || 0,
     },
   ];
 
-  const creditCardUsage = data.creditCards.map((card) => ({
-    name: card.name,
-    usage: (parseInt(card.balance) / parseInt(card.limit)) * 100,
-  }));
+  const creditCardUsage =
+    data?.creditCards?.map((card) => ({
+      name: card.name,
+      usage: (Number(card.balance) / Number(card.limit)) * 100,
+    })) || [];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6 p-6">
       <h1 className="text-3xl font-bold">Financial Dashboard</h1>
 
       {/* Summary Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Net Worth</CardTitle>
@@ -94,7 +123,9 @@ const FiBucksDashboard: React.FC = () => {
             <CardTitle>Total Assets</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">${totalAssets.toLocaleString()}</p>
+            <p className="text-2xl font-bold">
+              ${totalAssets.toLocaleString()}
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -102,13 +133,15 @@ const FiBucksDashboard: React.FC = () => {
             <CardTitle>Total Liabilities</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">${totalLiabilities.toLocaleString()}</p>
+            <p className="text-2xl font-bold">
+              ${totalLiabilities.toLocaleString()}
+            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Visualization Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Asset Allocation</CardTitle>
@@ -124,10 +157,15 @@ const FiBucksDashboard: React.FC = () => {
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) =>
+                    `${name} ${(percent * 100).toFixed(0)}%`
+                  }
                 >
                   {assetAllocation.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                 </Pie>
               </PieChart>
@@ -152,34 +190,44 @@ const FiBucksDashboard: React.FC = () => {
         </Card>
       </div>
 
-      {/* Detailed Sections */}
+      {/* Details Sections */}
       <Card>
         <CardHeader>
           <CardTitle>Credit Cards</CardTitle>
         </CardHeader>
         <CardContent>
-          {data.creditCards.map((card, index) => (
+          {data?.creditCards?.map((card, index) => (
             <div key={index} className="mb-4">
-              <div className="flex justify-between items-center mb-2">
-                <span>{card.name} (*{card.lastFourDigits})</span>
-                <span>${parseInt(card.balance).toLocaleString()} / ${parseInt(card.limit).toLocaleString()}</span>
+              <div className="mb-2 flex items-center justify-between">
+                <span>
+                  {card.name} (*{card.lastFourDigits})
+                </span>
+                <span>
+                  ${Number(card.balance).toLocaleString()} / $
+                  {Number(card.limit).toLocaleString()}
+                </span>
               </div>
-              <Progress value={(parseInt(card.balance) / parseInt(card.limit)) * 100} />
+              <Progress
+                value={(Number(card.balance) / Number(card.limit)) * 100}
+              />
             </div>
           ))}
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Depository Accounts</CardTitle>
           </CardHeader>
           <CardContent>
-            {data.depositoryAccounts.map((account, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
+            {data?.depositoryAccounts?.map((account, index) => (
+              <div
+                key={index}
+                className="mb-2 flex items-center justify-between"
+              >
                 <span>{account.name}</span>
-                <span>${parseInt(account.balance).toLocaleString()}</span>
+                <span>${Number(account.balance).toLocaleString()}</span>
               </div>
             ))}
           </CardContent>
@@ -190,59 +238,18 @@ const FiBucksDashboard: React.FC = () => {
             <CardTitle>Investments</CardTitle>
           </CardHeader>
           <CardContent>
-            {data.investments.map((investment, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
+            {data?.investments?.map((investment, index) => (
+              <div
+                key={index}
+                className="mb-2 flex items-center justify-between"
+              >
                 <span>{investment.name}</span>
-                <span>${parseInt(investment.value).toLocaleString()}</span>
+                <span>${Number(investment.value).toLocaleString()}</span>
               </div>
             ))}
           </CardContent>
         </Card>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Loans</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {data.loans.map((loan, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
-                <span>{loan.name}</span>
-                <span>${parseInt(loan.balance).toLocaleString()}</span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Real Estate</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {data.realEstate.map((property, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
-                <span>{property.address}</span>
-                <span>${parseInt(property.value).toLocaleString()}</span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Other Assets</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {data.others.map((item, index) => (
-            <div key={index} className="flex justify-between items-center mb-2">
-              <span>{item.name}</span>
-              <span>${parseInt(item.value).toLocaleString()}</span>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
     </div>
   );
 };
