@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DollarSign } from "lucide-react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -9,10 +9,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
+
+  const checkAuth = async () => {
+    try {
+      const response = await axios.get("/api/authcheck", {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

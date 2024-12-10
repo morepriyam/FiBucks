@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DollarSign } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -14,6 +14,23 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+
+  const checkAuth = async () => {
+    try {
+      const response = await axios.get("/api/authcheck", {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,10 +51,7 @@ export default function LoginPage() {
         title: "Success",
         description: "Logged in successfully!",
       });
-
-      form.reset();
-
-      router.push("/dashboard");
+      router.push("/financeinputs");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast({
