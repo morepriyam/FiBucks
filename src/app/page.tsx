@@ -33,14 +33,21 @@ export default function LandingPage() {
               </div>
               <div className="space-x-4">
                 <Link href="/dashboard">
-                  <Button>Get Started</Button>
+                  <Button
+                    size={"lg"}
+                    className="group w-80 items-center justify-center gap-4 rounded-full border-b-[1px] border-t-2 border-[#4D4D4D] bg-black p-8 text-2xl text-white transition-all duration-500 hover:bg-white hover:text-black hover:shadow-xl hover:shadow-neutral-500 md:mb-0"
+                  >
+                    Get Started
+                  </Button>
                 </Link>
-                <Button variant="outline">Learn More</Button>
               </div>
             </div>
           </div>
         </section>
-        <section className="w-full bg-gray-100 py-12 dark:bg-gray-800 md:py-24 lg:py-32">
+        <section
+          className="w-full bg-gray-100 py-12 dark:bg-gray-800 md:py-24 lg:py-32"
+          id="features"
+        >
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <h2 className="mb-12 text-center text-3xl font-bold tracking-tighter text-black sm:text-5xl">
               Key Features
