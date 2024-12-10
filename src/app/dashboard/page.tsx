@@ -151,7 +151,7 @@ const FiBucksDashboard: React.FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={assetAllocation}
+                  data={assetAllocation.filter((item) => item.value > 0)}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
