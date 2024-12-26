@@ -1,0 +1,22 @@
+name: Test Generate README Action
+
+on:
+  push:
+    paths:
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.tsx"
+  workflow_dispatch:
+
+jobs:
+  test-generate-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Use Generate README Action
+        uses: morepriyam/readme-next-openai@main
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
