@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run README generation action
-        uses: ./ # Use the local action in your repository
+        uses: morepriyam/readme-next-openai@main
         with:
           email: testuser@example.com
           name: Test User
