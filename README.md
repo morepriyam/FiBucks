@@ -20,191 +20,229 @@
 
 # About the Project
 
-# Fibucks Project Description
+# Project Description: Fibucks
 
 ## Overview
+Fibucks is an innovative personal finance management web application designed to simplify users' financial tracking and enhance their budgeting capabilities. With a robust and intuitive user interface, Fibucks empowers users to manage their transactions efficiently, visualize their financial data through dynamic charts, and receive insights tailored to their financial environment.
 
-**Fibucks** is a web-based financial management application designed to empower users to manage their personal finance efficiently. By leveraging modern web technologies, Fibucks provides a user-friendly interface along with powerful features to help users track expenses, analyze financial data, and make informed budgeting decisions. 
+### Key Purpose
+The primary goal of Fibucks is to provide users with a comprehensive platform for managing their personal finances. By allowing users to log their transactions, categorize their expenses, and analyze their spending patterns through visual analytics, Fibucks fosters better financial decision-making and higher financial literacy.
 
-## Key Features
+## Features
+- **User Management:** 
+  - Secure user registration and authentication.
+  - Email verification functionality to validate user accounts.
 
-1. **User Authentication**: 
-   - Secure registration and login with email verification processes ensure user privacy and data security.
-   - User account management, including logout and session checks.
+- **Transaction Tracking:**
+  - Add, edit, and delete financial transactions.
+  - Categorize expenses and income for clear financial overviews.
+  - Use a user-friendly interface for entering transaction details via forms that leverage the `react-hook-form` library for efficient state management.
 
-2. **Financial Tracking**:
-   - Users can add, view, and manage transactions easily with forms that are integrated with the React Hook Form library to improve usability and validation.
-   - Support for different financial inputs through customized forms ensuring a tailored experience.
+- **Data Visualization:**
+  - Visualize income and expenditure patterns with interactive charts created using `Chart.js` and `Recharts`.
+  - Track financial health over time through dynamically generated reports and statistics.
 
-3. **Data Visualization**:
-   - Interactive charts using Chart.js and Recharts allow users to visualize their financial activities through insightful graphs depicting trends, breakdowns, and summaries of spending habits.
-   - Transaction history can be viewed in a comprehensive list format accompanied by dynamic filtering capabilities.
+- **Finance Inputs:**
+  - Input fields for tracking various finance-related metrics using customizable form components.
 
-4. **Responsive Design**:
-   - A fully responsive layout developed with Tailwind CSS ensures an optimal viewing experience across devices, from desktops to mobile phones.
+- **Notifications and Alerts:**
+  - Instant feedback on transaction submissions through toasts powered by Radix UI.
+  
+- **Responsive Design:**
+  - A mobile-first approach utilizing Tailwind CSS for a seamless experience across devices.
+  
+- **Theming and Aesthetic Controls:**
+  - Dark and light mode toggle, allowing users to personalize their app’s appearance with `next-themes`.
 
-5. **Real-time Notifications and Feedback**:
-   - Toast notifications provide users with real-time feedback on their actions, ensuring they stay informed about the status of their transactions and operations.
+- **Integrated Email Notifications:**
+  - Users can receive financial-related alerts and reports via email through Nodemailer integration.
 
-6. **Theming Support**:
-   - Users can customize their experience with theme switching capabilities, ensuring that the interface is not only functional but also visually pleasing.
+## Technical Features
+- **App Router Structure:** Utilizing Next.js's app-router to handle routing and page layout efficiently, creating a seamless single-page application experience.
+  
+- **Backend and Database Management:** 
+  - Utilizes Mongoose for MongoDB interaction, allowing persistent storage of user credentials, transactions, and financial metrics.
+  
+- **State Management and Validation:**
+  - Employs Zod for data validation schemes and ensures robust data handling.
 
-7. **Email Notifications**:
-   - Integration with Nodemailer allows for feedback and updates sent directly through email, enhancing communication with users.
+- **Middleware Integration:**
+  - Middleware functions to manage user sessions and protect routes, ensuring a secure experience.
 
 ## Benefits to Users
+- **Enhanced Financial Awareness:** 
+  - Users gain insights into their spending habits, leading to more informed financial decisions.
 
-- **Empowerment**: Fibucks puts financial oversight at the users' fingertips, allowing for better decision-making and financial independence.
-- **Clarity**: By using visual data representation, users can quickly assess their financial situation without getting lost in numbers and figures.
-- **Security**: Robust authentication and encryption mechanisms ensure the safety of user data and transactions.
-- **Simplicity**: Well-structured forms and intuitive navigation means that users can get started quickly without a steep learning curve.
+- **User-Friendly Interface:** 
+  - With features like dropdown menus, toast notifications, and interactive charts, users can navigate Fibucks with ease while enjoying an aesthetically pleasing interface.
 
-## File Structure Breakdown
+- **Security and Privacy:** 
+  - All data transactions are carried out securely, with bcrypt used for hashing passwords, ensuring that user information is protected.
 
-- **Models**: Defined schemas for user, transaction, and finance data, ensuring a well-structured database for financial records.
-- **Components**: Organized into global and UI components that streamline the development process, ensuring reusability across the application.
-- **API Routes**: Clear API endpoints for user authentication, transaction processing, and finance input management, facilitating a seamless client-server interaction.
-- **Utilities and Middleware**: Houses general utility functions and middleware logic, promoting code reuse and separation of concerns.
+- **Accessibility and Customization:**
+  - The ability to switch themes and extensive responsive design makes Fibucks accessible to a broad spectrum of users, enhancing overall user satisfaction.
 
-## Conclusion
-
-In a world where financial literacy is paramount, **Fibucks** aims to make finance management accessible and efficient for everyone. With its robust features backed by a solid technological foundation, the platform serves as an essential tool for users seeking to enhance their financial wellbeing. Whether you are tracking mundane daily expenses or analyzing complex financial trends, Fibucks is here to streamline the process and empower you in your financial journey.
+In summary, Fibucks stands as a robust platform tailored for individuals seeking effective financial management tools. By leveraging modern web technologies and user-centered design principles, it aims to elevate the financial literacy and management skills of its users, making personal finance more approachable and less daunting.
 
 ---
 
 # Technologies and Libraries
 
-In analyzing the dependencies listed for the project "Fibucks," we can identify several key libraries that play critical roles in achieving the application’s functionality. Here’s a breakdown of the main libraries used, their importance, and how they contribute to the overall project scope:
+Analyzing the dependencies for the project "Fibucks," we can categorize and highlight key libraries based on their functionality, importance, and contribution to the project's overall architecture. Here’s a breakdown of the critical libraries and their roles:
 
-### Key Libraries and Their Contributions
+### 1. **@hookform/resolvers** and **react-hook-form**
+- **Purpose**: These libraries provide form validation and management capabilities in React applications. 
+- **Importance**: `react-hook-form` is a powerful tool for handling forms in React, enabling developers to manage state and validation easily with minimal re-renders, which improves performance.
+- **Contribution**: They allow for efficient handling of user inputs in forms, validation rules, and integration with schema validation libraries like Zod, making user interactions seamless and responsive.
 
-1. **React and React-Dom**
-   - **Versions**: `react`: ^18.3.1, `react-dom`: ^18.3.1
-   - **Importance**: These are core libraries for building user interfaces. React allows for creating component-based UI efficiently.
-   - **Contribution**: They enable the construction of a dynamic, interactive web application. The project likely uses these libraries to render components efficiently and manage state.
+### 2. **@radix-ui/react-* (dropdown, progress, select, toast, etc.)**
+- **Purpose**: These libraries serve to create accessible UI components that follow best practices.
+- **Importance**: Radix UI components ensure that the application is accessible and easy to use, which is crucial for user experience. They help standardize complex UI elements like dropdowns, dialogs, and progress indicators.
+- **Contribution**: They provide the building blocks for a polished, modern UI with features like accessibility support, which can be complex to implement from scratch.
 
-2. **Next.js**
-   - **Version**: `next`: 14.2.12
-   - **Importance**: Next.js is a powerful React framework that supports server-side rendering, static site generation, and routing.
-   - **Contribution**: It provides the foundation for the application's structure, enabling enhanced performance and SEO capabilities, which are critical for modern web applications.
+### 3. **axios**
+- **Purpose**: Axios is a promise-based HTTP client for the browser and Node.js.
+- **Importance**: It simplifies making HTTP requests to APIs, handling responses, and managing errors.
+- **Contribution**: This library facilitates communication between the frontend and backend services, enabling data retrieval and manipulation, which is essential for any web application.
 
-3. **Axios**
-   - **Version**: `axios`: ^1.7.8
-   - **Importance**: A popular library for making HTTP requests.
-   - **Contribution**: In "Fibucks," Axios would be used to fetch data from APIs, manage asynchronous operations, and handle backend communication seamlessly.
+### 4. **mongoose**
+- **Purpose**: Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js.
+- **Importance**: It provides a straightforward schema-based solution to model application data.
+- **Contribution**: Critical for setting up the database interactions in a structured manner, allowing for easy querying, data validation, and consistency across data handling.
 
-4. **Mongoose**
-   - **Version**: `mongoose`: ^8.7.3
-   - **Importance**: An ODM (Object Data Modeling) library for MongoDB and Node.js.
-   - **Contribution**: Mongoose simplifies data validation, casting, and querying for a MongoDB database, making it easier to work with the database layer of the application.
+### 5. **next**
+- **Purpose**: Next.js is a React framework for server-rendered or statically generated applications.
+- **Importance**: It streamlines the development of React applications with features like routing, server-side rendering (SSR), and API routes.
+- **Contribution**: Essential for building a performant, scalable, and SEO-friendly application, making it easier to implement a rich user experience.
 
-5. **bcrypt**
-   - **Version**: `bcrypt`: ^5.1.1
-   - **Importance**: A library for hashing passwords.
-   - **Contribution**: It is crucial for security, enabling the application to securely handle user authentication by protecting password data.
+### 6. **chart.js and react-chartjs-2**
+- **Purpose**: These libraries are used for data visualization.
+- **Importance**: `chart.js` is a versatile library that supports various charts, while `react-chartjs-2` is a wrapper for integrating Chart.js with React.
+- **Contribution**: They enable the application to present complex data visually, offering insights and analytics to users.
 
-6. **React Hook Form**
-   - **Version**: `react-hook-form`: ^7.53.2
-   - **Importance**: A performant and flexible form library for React.
-   - **Contribution**: It simplifies form handling by reducing re-renders, improving performance, and providing a better developer experience for managing form validation and submissions.
+### 7. **zod**
+- **Purpose**: Zod is a TypeScript-first schema declaration and validation library.
+- **Importance**: It allows the definition of strict schemas to validate user input.
+- **Contribution**: Helps in enforcing data integrity and validation, especially when using forms, improving the reliability of the application's data handling.
 
-7. **Zod**
-   - **Version**: `zod`: ^3.23.8
-   - **Importance**: A TypeScript-first schema declaration and validation library.
-   - **Contribution**: Used for input validation and ensuring data integrity throughout the application, enhancing the robustness of forms when integrated with React Hook Form.
-
-8. **@radix-ui libraries**
-   - **Versions**: Various (e.g., `@radix-ui/react-dropdown-menu`, `@radix-ui/react-toast`, etc.)
-   - **Importance**: A set of accessible UI components.
-   - **Contribution**: These libraries are crucial for building intuitive and user-friendly components while ensuring accessibility standards are met. They provide pre-built components like dropdowns, toasts, and tabs that help maintain consistency and functionality across the UI.
-
-9. **Chart.js and React-Chartjs-2**
-   - **Versions**: `chart.js`: ^4.4.
+### 8. **bcrypt**
+- **Purpose**: A library to help secure passwords through hashing.
+- **Importance**: Security is paramount in web applications, especially when handling sensitive
 
 ---
 
 # Key Features
 
-Based on the file structure of the "Fibucks" project, here is a tailored list of features that highlight what the project offers and how it stands out:
+Based on the provided file structure of the "Fibucks" project, here are some tailored features that highlight what the project offers and how it stands out:
 
 ### Tailored Features of Fibucks
 
-1. **User Management System:**
-   - **Signup & Login Interfaces:** Easy user account creation and management through dedicated pages (`/app/signup/page.tsx` and `/app/login/page.tsx`) and API routes for seamless authentication (`/api/users/signup/route.ts` and `/api/users/login/route.ts`).
-   - **Email Verification:** Implemented email verification to ensure security and authenticity, enhancing user trust (`/app/verify/page.tsx` and `/api/verify/route.ts`).
-   - **Logout Functionality:** Simple route for users to secure their sessions with a logout feature (`/api/users/logout/route.ts`).
+1. **User Management System**
+   - **Registration and Authentication**: The inclusion of `signup`, `login`, and `logout` routes allows for a streamlined user registration and authentication process.
+   - **Email Verification**: The `verify/email-verification-status.tsx` suggests robust verification processes to enhance account security.
 
-2. **Financial Transactions Tracking:**
-   - **Transaction Management:** Comprehensive models for transactions with schema and user data structures (`transactionModel.js`, `transactionSchema.ts`, `financeSchema.ts`).
-   - **Dynamic Transaction List:** A user-friendly component for displaying transactions in a clean, organized manner (`TransactionList.tsx`).
-   - **Finance Inputs Management:** Interface for users to manage various finance inputs, contributing to holistic financial tracking (`/app/financeinputs/page.tsx`).
+2. **Finance Management Tools**
+   - **Transaction Handling**: Models like `transactionModel.js` and `transactionSchema.ts` indicate capabilities for managing individual transactions, which may include tracking, editing, and deleting.
+   - **Finance Input Management**: The `financeinput` API route alongside the related UI components enables users to input and categorize their financial data effectively.
 
-3. **Visual Data Representation:**
-   - **Transaction Charts:** An engaging charting component to visualize financial data and spending patterns (`TransactionChart.tsx`).
-   - **Progress Indicators:** Use of progress bars and loaders to enhance user experience while data is being fetched or processed (`Loader.tsx`, `progress.tsx`).
+3. **User Dashboard**
+   - **Comprehensive Overview**: The `dashboard/page.tsx` likely offers users a personalized view of their financial health, displaying vital metrics and summaries.
+   - **Dynamic Charts**: The `TransactionChart.tsx` component aids in visualizing transaction trends, allowing users to analyze their spending and income patterns quickly.
 
-4. **User Interface Components:**
-   - **Reusable UI Components:** A rich library of UI elements like buttons, forms, labels, and dropdown menus to ensure a consistent and appealing design throughout the application (`button.tsx`, `form.tsx`, `label.tsx`, etc.).
-   - **Theming and Customization:** Flexibility in UI design using theme providers, allowing for easy adaptation to various themes or user preferences (`theme-provider.tsx`).
+4. **Interactive Transaction Lists**
+   - **Detailed Transaction Logs**: The `TransactionList.tsx` component facilitates easy access to all transactions, complete with filtering and sorting options for better usability.
+   - **Progress Tracking**: Components like `progress.tsx` may assist users in tracking their financial goals by providing visual progress indicators.
 
-5. **Notifications & Feedback:**
-   - **Toast Notifications:** Real-time feedback mechanism using toast notifications for user actions, enhancing interactivity (`use-toast.ts` and `toast.tsx`).
-   - **Form Feedback:** Dynamic form elements that provide instant feedback on user inputs for a better user experience (`input.tsx`, `textarea.tsx`, etc.).
+5. **Versatile UI Components**
+   - **Reusable and Customizable UI Elements**: The presence of various UI components such as forms, buttons, dropdown menus, and cards indicates a well-structured and maintainable design system.
+   - **Responsive Design**: The structured components (like `theme-provider.tsx` and `loader.tsx`) suggest a focus on ensuring that the application is visually consistent and usable across different devices.
 
-6. **API Integration:**
-   - **Secure API Endpoints:** Well-structured API routes for managing user and transaction data, ensuring secure and efficient data exchanges (`/api/users/transactions/route.ts`, `/api/users/financeinput/route.ts`).
-   - **Middleware Support:** Use of middleware for centralized control of request processing, adding another layer of security and functionality (`middleware.ts`).
+6. **Notification and Feedback System**
+   - **User Feedback with Toasts**: Components such as `toast.tsx` and `toaster.tsx` handle real-time notifications and feedback to users for actions taken within the application.
 
-7. **Dashboard for Financial Overview:**
-   - **User Dashboard:** Centralized location for users to view their financial status, track transactions, and analyze spending patterns on the `/app/dashboard/page.tsx`.
-   - **Tabbed Navigation for Organizing Information:** Tabs for organized navigation among different finance-related sections (e.g., transactions, finance inputs) enhancing usability (`FinanceTab.tsx`, `tabs.tsx`).
+7. **Middleware and Utilities**
+   - **Robust Middleware Solutions**: The inclusion of `middleware.ts` suggests that the project employs middleware for error handling, authentication, or data processing.
+   - **Helper Functions**: The presence of `utils.ts` and `financeUtils.tsx` indicates a comprehensive utility library for managing common tasks and calculations related to finances.
 
-8. **Email Utilities:**
-   - **Mailer Integration:** Built-in support for sending emails, which can be useful for notifications, confirmations,
+8. **API-Driven Architecture**
+   - **RESTful API Endpoints**: The segmented API routes for user actions (login, signup, and transaction management) allow for a modular approach to data handling and improve scalability.
+   - **Secure and Organized Data Management**: The use of `dbConfig.ts` implies a solid backend setup with a clear database structure for efficient data operations.
+
+9. **Financial Insights and Reporting**
+   - **Finance Tab**: The `FinanceTab.tsx` component likely centralizes various financial insights in one place, aiding users in making informed financial decisions.
+
+10. **Scalability and Extensibility**
+    - **Separation of Concerns**: The organized file structure enhances maintainability and scalability, allowing future updates and features to be added without major refactoring.
+
+Overall, "Fibucks" stands
 
 ---
 
 # File Structure
 
-The "Fibucks" project appears to be a finance management application with components for user authentication, transactions, and financial tracking, featuring a user-friendly interface. Below is a detailed overview of the purpose of each file in the project's directory structure:
+Certainly! Below is a detailed overview of the purpose of each file in the "Fibucks" project, aimed at providing a comprehensive understanding of its structure and functionality.
 
-### Model Files
-- **`./src/models/financeSchema.ts`**: Defines the schema for finance-related data, possibly including user inputs for income, expenses, budgets, and related financial metrics. This schema ensures data consistency and validation when handling financial records.
+### File Structure Overview
 
-- **`./src/models/userModel.js`**: Contains the user model which likely handles user data such as usernames, emails, passwords, and other identification attributes. This is crucial for user authentication and management within the application.
+#### Model Definitions
+- **`src/models/financeSchema.ts`**
+  - Defines the schema for finance-related data, likely using a library like Mongoose for MongoDB. This file specifies the shape and validation rules for finance data entries.
 
-- **`./src/models/transactionModel.js`**: Defines the transaction model used to manage financial transactions. It could include attributes like transaction types (income or expense), amounts, categories, timestamps, and possibly associations with users.
+- **`src/models/userModel.js`**
+  - This file represents the user model, defining user-related data attributes and possibly methods for interacting with user data within the database.
 
-- **`./src/models/transactionSchema.ts`**: Similar to `financeSchema.ts`, this file likely specifies the structure and validation rules for transaction data. This schema ensures that all transactions adhere to a consistent format.
+- **`src/models/transactionModel.js`**
+  - Similar to the user model but focused on transactions. It defines attributes related to financial transactions (like amount, date, user ID, etc.) and any related methods.
 
-### Component Files
-#### Global Components
-- **`./src/components/global/TransactionList.tsx`**: Displays a list of transactions, allowing users to view and manage their financial activities in a single place.
+- **`src/models/transactionSchema.ts`**
+  - Specifies the schema for transaction data, ensuring transactions conform to defined rules and structures when being saved to the database.
 
-- **`./src/components/global/FormFields.tsx`**: A reusable component for rendering form fields, likely used in various forms throughout the application to maintain consistency in design and functionality.
+#### Component Structure
+- **Global Components:**
+  - **`src/components/global/TransactionList.tsx`**
+    - Displays a list of transactions, possibly with options to filter or sort the entries. It helps users track their financial activities.
+  
+  - **`src/components/global/FormFields.tsx`**
+    - Contains reusable form field components (like input fields) for consistency across forms in the application.
 
-- **`./src/components/global/Loader.tsx`**: A loading spinner or component that indicates to users that data is being fetched or processed, improving user experience during data operations.
+  - **`src/components/global/Loader.tsx`**
+    - A loading spinner or animation, utilized throughout the app to indicate data loading processes.
 
-- **`./src/components/global/TransactionChart.tsx`**: Visualizes transaction data in chart format, helping users analyze their financial trends, such as spending patterns or income sources over time.
+  - **`src/components/global/TransactionChart.tsx`**
+    - Visualizes transaction data through graphs or charts, providing users insight into their financial trends or behaviors.
 
-- **`./src/components/global/footer.tsx`**: The footer component for the application, likely containing links to privacy policies, terms of service, or contact information.
+  - **`src/components/global/footer.tsx`**
+    - Represents the footer section of the application, likely containing copyright information and links to privacy policies or other resources.
 
-- **`./src/components/global/FinanceTab.tsx`**: A tabbed interface for managing different aspects of finance within the application, allowing for an organized layout between income, expenses, and other financial data.
+  - **`src/components/global/FinanceTab.tsx`**
+    - A component that could manage different finance-related views, toggling between various functionalities related to finance management.
 
-- **`./src/components/global/navbar.tsx`**: The navigation bar that likely provides links to key sections of the application, such as the dashboard, transactions, finance inputs, user profile, etc.
+  - **`src/components/global/navbar.tsx`**
+    - The navigation bar allowing users to move through different sections of the app, facilitating a user-friendly experience.
 
-#### UI Components
-- **`./src/components/ui/toast.tsx`**: Custom notification component for displaying brief messages to users, such as alerts for successful actions or errors.
+- **User Interface Components:**
+  - **`src/components/ui/toast.tsx`**
+    - Displays brief notifications or alerts (toasts) to inform users of actions or status updates (like successful submissions).
 
-- **`./src/components/ui/form.tsx`**: A modular form component that likely encompasses standard behaviors (like validation) used throughout the application.
+  - **`src/components/ui/form.tsx`**
+    - A generic form component that serves as a base for different forms in the application.
 
-- **`./src/components/ui/card.tsx`**: A card component for displaying summarized data (like transaction details or financial metrics) in a visually appealing way.
+  - **`src/components/ui/card.tsx`**
+    - A card-style component used to encapsulate information, typically for displaying individual pieces of data like transactions or user metrics.
 
-- **`./src/components/ui/label.tsx`**: Component for rendering labels associated with form inputs, ensuring textual consistency across forms.
+  - **`src/components/ui/label.tsx`**
+    - Defines label components for form fields to ensure proper accessibility and usability.
 
-- **`./src/components/ui/input.tsx`**: A customizable input field component for collecting user data, including various types such as text, number, or password.
+  - **`src/components/ui/input.tsx`**
+    - A reusable input component that centralizes input behavior and styling throughout the app.
 
-- **`./src/components/ui/tabs.tsx`**: A
+  - **`src/components/ui/tabs.tsx`**
+    - Manages tabbed navigation within certain views or sections, enhancing organization and user experience.
+
+  - **`src/components/ui/toaster.tsx`**
+    - Likely a higher-level component that manages the display of toast notifications.
+
+  - **`src/components/ui/dropdown-menu.tsx
 
 ---
 
@@ -212,366 +250,336 @@ The "Fibucks" project appears to be a finance management application with compon
 
 # Getting Started with Fibucks
 
-Welcome to the Fibucks project! This guide will help you set up your development environment, install the necessary dependencies, and run the project efficiently. 
+Welcome to the Fibucks project! This guide will help you set up your environment, install the necessary dependencies, and get the project running.
 
 ## Prerequisites
 
-Before you start, ensure you have the following installed on your machine:
-
-- [Node.js](https://nodejs.org/) (version 14.x or later)
-- [npm](https://www.npmjs.com/) (comes with Node.js) or [Yarn](https://yarnpkg.com/) (optional)
+- Ensure you have [Node.js](https://nodejs.org/en/download/) installed (preferably version 14 or above).
+- You may also want to have [MongoDB](https://www.mongodb.com/try/download/community) installed locally, or have access to a MongoDB database.
 
 ## Installation Steps
 
 1. **Clone the Repository**
-
-   First, clone the Fibucks repository to your local machine:
-
    ```bash
    git clone https://github.com/yourusername/fibucks.git
    cd fibucks
    ```
 
-   Make sure to replace `yourusername` with your actual GitHub username or the repository's URL.
-
 2. **Install Dependencies**
+   Use npm or yarn to install the required dependencies:
+   - If you're using npm:
+     ```bash
+     npm install
+     ```
+   - If you're using yarn:
+     ```bash
+     yarn install
+     ```
 
-   Navigate to the project directory and install the required dependencies using npm or Yarn:
-
-   ```bash
-   npm install
-   ```
-
-   or if you prefer Yarn:
-
-   ```bash
-   yarn install
-   ```
-
-3. **Setup Environment Variables**
-
-   Create a `.env.local` file in the root of your project to store your environment variables. Use the following template for the contents of the file:
-
+3. **Set Up Environment Variables**
+   Create a `.env` file in the root of your project and set up the necessary environment variables. An example `.env` file might look like this:
    ```plaintext
-   MONGODB_URI=<your_mongodb_uri>
-   SMTP_HOST=<your_smtp_host>
-   SMTP_PORT=<your_smtp_port>
-   SMTP_USER=<your_smtp_username>
-   SMTP_PASS=<your_smtp_password>
-   NEXTAUTH_URL=<your_nextauth_url>
+   MONGODB_URI=<your_mongodb_connection_string>
+   SECRET_KEY=<your_secret_key>
+   NODE_ENV=development
    ```
+   Replace `<your_mongodb_connection_string>` and `<your_secret_key>` with your actual values.
 
-   Make sure to replace the placeholder values with your actual configuration details.
+## Environment Setup
 
-4. **Database Setup**
+1. **Database Configuration**
+   Ensure your MongoDB service is running. If you're working with a local instance, you can start it with the default configuration. For cloud databases, make sure you have the correct URI configured in your `.env` file.
 
-   Ensure you have a MongoDB instance running. You can use a local MongoDB installation or a cloud service like MongoDB Atlas. Update the `MONGODB_URI` variable in your `.env.local` file to connect to your MongoDB instance.
-
-## Run the Project
-
-Once you have completed the setup and installed all dependencies, you can run the project using the following command:
-
-```bash
-npm run dev
-```
-
-or, if using Yarn:
-
-```bash
-yarn dev
-```
-
-This command will start the Next.js development server, typically accessible at `http://localhost:3000`.
+2. **Other Configurations**
+   If you're planning to use email functionality (for instance, during user signup), configure SMTP settings in your `.env` file according to your email service provider.
 
 ## File Structure Overview
 
-The following are key directories and files in the project structure you'll be working with:
+The project is organized into the following main directories:
 
-- **`/src`**: Contains all source code files.
-  - **`/app`**: Application routes and pages
-  - **`/components`**: Reusable UI components
-  - **`/models`**: Database schema and models
-  - **`/lib`**: Library utilities such as mailer
-  - **`/middleware.ts`**: Application middleware
-  - **`/dbConfig`**: Database configuration files
-  - **`/hooks`**: Custom hooks for state and effects
-  - **`/utils`**: Utility functions for finance calculations
+- **src/models/**: Contains database schemas and models.
+- **src/components/**: UI components including forms, buttons, and various global components.
+- **src/lib/**: Utility files and mailer configurations.
+- **src/app/**: Routing and page components using the App Router.
+- **src/dbConfig/**: Database configuration.
+- **src/hooks/**: Custom hooks for various functionalities.
 
-## Additional Notes
+## Running the Project
 
-- For detailed information about how to use specific components, explore the component files located in `./src/components/`.
-- If you encounter any issues, ensure your dependencies are properly installed, and check the Node.js and npm versions.
-- For further customization, refer to the `tailwind.config.ts` file for Tailwind CSS configuration.
+To start the development server, run one of the following commands:
 
-Happy coding with
+- If using npm:
+  ```bash
+  npm run dev
+  ```
+
+- If using yarn:
+  ```bash
+  yarn dev
+  ```
+
+The application should now be running on `http://localhost:3000`. Open this URL in your web browser to access the Fibucks application.
+
+## Additional Commands
+
+- **Build the Project**: To create a production build of the application, run:
+  ```bash
+  npm run build
+  ```
+  
+- **Run Tests**: If there are tests set up in your project, you can run them using:
+  ```bash
+  npm test
+  ```
+
+## Troubleshooting
+
+If you encounter any issues during setup, please ensure that:
+
+- All dependencies are correctly installed.
+- Environment variables are set properly.
+- Your MongoDB database is accessible.
+
+For further assistance, check the [issues page on GitHub](https://github.com/yourusername/fibucks/issues).
+
+Happy coding with Fibucks!
 
 ---
 
 # Scripts and Commands
 
-## Scripts and Commands for Fibucks
+# Scripts and Commands for Fibucks
 
-This section outlines the essential scripts for the Fibucks project, including their usage and importance in the development, testing, and deployment processes. Each script is vital for maintaining a smooth workflow and ensuring the project's reliability.
+The following section provides an overview of the scripts used in the Fibucks project. Each script serves a specific purpose in the project's development, building, testing, and deployment workflow. Understanding these commands is crucial for effectively running and maintaining the project.
 
-### 1. Development Script
+### Scripts Overview
 
-**Command:**
-```bash
-npm run dev
-```
-**Description:**
-This command executes `next dev`, which starts the Next.js application in development mode.
+#### 1. **dev**
+- **Command:** `next dev`
+- **Usage:** This command starts the Next.js development server, which enables developers to work on the project in a local environment.
+- **Importance:** 
+  - Provides real-time reloading, which allows developers to see changes immediately without needing to refresh the browser manually.
+  - Facilitates the iterative development process by offering tools for debugging and inspecting components.
+  - Essential for achieving a smooth development experience, enabling faster and more efficient coding.
 
-**Usage:**
-- After cloning the repository and installing dependencies, you can run this command to start the application.
-- It allows developers to view changes in real-time, automatically updating the application as changes are made in the code.
+#### 2. **build**
+- **Command:** `next build`
+- **Usage:** This command compiles the Next.js application into an optimized production build.
+- **Importance:**
+  - Prepares the application for deployment by optimizing assets and pages, ensuring better performance and loading times.
+  - Generates static files, server-side rendering outputs, and bundles JavaScript files, making the app ready for production use.
+  - Crucial for maintaining performance standards in a production environment, ensuring the application runs smoothly for end users.
 
-**Importance:**
-- Provides hot reloading, enabling fast feedback while developing features.
-- Offers access to debugging tools and error reporting, which is crucial for identifying and fixing issues during development.
+#### 3. **start**
+- **Command:** `next start`
+- **Usage:** This command runs the compiled application in a production environment.
+- **Importance:**
+  - Starts the Next.js server for the production build created by the `build` script, transitioning from the development to production phase.
+  - Essential for serving the optimized static assets and APIs to end users reliably.
+  - Important for replicating how the application behaves in a live production scenario, allowing for stress testing and verification of optimized performance.
 
----
+#### 4. **test**
+- **Command:** `mocha 'test/*.js'`
+- **Usage:** This command runs unit and integration tests located in the "test" directory using the Mocha testing framework.
+- **Importance:**
+  - Ensures that code changes do not introduce bugs by running tests automatically, maintaining the integrity and reliability of the application.
+  - Provides developers with immediate feedback on code correctness, facilitating confident refactoring and feature additions.
+  - Critical for ongoing maintenance and development, as robust testing practices help prevent regressions and support a solid codebase.
 
-### 2. Build Script
+### Conclusion
 
-**Command:**
-```bash
-npm run build
-```
-**Description:**
-This command executes `next build`, which compiles the application for production.
-
-**Usage:**
-- Run this command before deployment to create an optimized version of the application.
-- It should be executed after the development phase, ensuring that any changes have been finalized.
-
-**Importance:**
-- Optimizes performance through code splitting and image optimization, reducing load times for users.
-- Ensures that the application is ready for deployment, creating a static version of your pages for efficient serving.
-
----
-
-### 3. Start Script
-
-**Command:**
-```bash
-npm run start
-```
-**Description:**
-This command executes `next start`, which runs the compiled Next.js application in a production-ready environment.
-
-**Usage:**
-- Use this command after building the application to start serving the optimized version locally or on a production server.
-- Typically executed in the production environment to serve users effectively.
-
-**Importance:**
-- Provides a streamlined approach to launching the application with optimal settings.
-- Ensures that the application operates as intended, mirroring the environment it will be in when deployed to a live server.
-
----
-
-### 4. Test Script
-
-**Command:**
-```bash
-npm run test
-```
-**Description:**
-This command executes `mocha 'test/*.js'`, which runs the tests defined in the project's test directory using the Mocha testing framework.
-
-**Usage:**
-- Run this command to execute all unit tests and ensure that the application’s functionality is working correctly.
-- It can be integrated into the CI/CD pipeline to enforce automated testing before deployment.
-
-**Importance:**
-- Validates changes made to the codebase, ensuring new features or fixes do not introduce regressions.
-- Helps maintain code quality and reliability, building user trust in the application's performance.
-
----
-
-### Summary
-
-These scripts serve critical roles in the Fibucks project lifecycle, from development through testing and to production deployment. Proper use of these commands ensures that the project remains robust, performant, and ready to meet user demand. Regular updates and executions of the testing script furthering the long-term maintainability and reliability of the application.
+The scripts detailed above form the backbone of the Fibucks project’s development and maintenance workflow. By understanding their usage and importance, developers can effectively manage the lifecycle of the application from development through to production while ensuring quality through testing. Regular use of these commands will facilitate a robust, efficient, and scalable project environment.
 
 ---
 
 # FAQ
 
-# Fibucks FAQ Section
+## Fibucks FAQ
 
-Welcome to the Fibucks FAQ section! Here you’ll find answers to common questions regarding installation issues, setup requirements, and how to use the features based on our dependencies and file structure.
+### Installation Issues
 
-## Installation Issues
+**Q1: What are the prerequisites for installing Fibucks?**
+  
+A1: Before installing Fibucks, ensure you have Node.js installed (version 14 or later is recommended) and a package manager like npm or yarn.
 
-### 1. What should I do if I face issues installing dependencies?
-If you encounter errors during installation, make sure that your Node.js and npm (or yarn) versions are up to date. You can check your Node.js version with `node -v` and npm with `npm -v`. Update them if necessary. After updating, try running the installation command again:
+---
 
-```bash
-npm install
-```
-or
-```bash
-yarn install
-```
+**Q2: I'm facing dependency installation errors. What should I do?**
 
-### 2. I'm getting a dependency conflict error. How can I resolve it?
-Dependency conflicts usually arise from version mismatches. Try the following:
-- Specify compatible versions directly in your `package.json`.
-- Run `npm install --legacy-peer-deps` to bypass peer dependency issues.
-- Check for updates and resolve any outdated packages using `npm outdated`.
+A2: First, make sure your Node.js and npm versions are up to date. You can check your current versions by running `node -v` and `npm -v` in your terminal. If you continue to face issues, try deleting the `node_modules` folder and the `package-lock.json` file, then reinstall your dependencies with `npm install` or `yarn install`.
 
-## Setup Requirements
+---
 
-### 3. What are the minimum system requirements for running Fibucks?
-Fibucks requires:
-- Node.js version 14 or higher.
-- npm version 6 or higher.
-- A stable internet connection for fetching dependencies.
+**Q3: Can I use an older version of any dependencies?**
 
-### 4. Do I need to configure any environment variables?
-Yes, Fibucks may require certain environment variables to be set up, especially for database connections and email service configurations. Please refer to the `.env.example` file in the root directory for guidance on what to include in your `.env` file.
+A3: It is recommended to use the specified versions of dependencies to ensure compatibility and stability. However, if you encounter issues, you may experiment with earlier versions, but be prepared for potential bugs or missing features.
 
-### 5. How do I set up the database for Fibucks?
-To set up your database:
-1. Ensure MongoDB is installed and running.
-2. Create a new database for the project.
-3. Update the connection string in `./src/dbConfig/dbConfig.ts` with your database settings.
+---
 
-## Feature Usage
+### Setup Requirements
 
-### 6. How do I use the forms in Fibucks?
-Fibucks utilizes React Hook Form for managing form states. You can find reusable form components in `./src/components/ui/` such as `form.tsx` and `input.tsx`. To use these components:
-- Import them into your page or component.
-- Wrap your form inputs with the `useForm` hook provided by `react-hook-form`.
+**Q4: What is the recommended project structure for Fibucks?**
 
-### 7. How can I display transactions in the app?
-Transactions can be accessed and displayed using the `TransactionList.tsx` component located in `./src/components/global/`. Ensure you are fetching transaction data correctly from your API routes located in `./src/app/api/users/transactions/route.ts`.
+A4: The project should follow the predefined folder structure highlighted in the next section. Ensure that your models, components, and application routes are correctly placed within the `src` directory.
 
-### 8. What charting libraries are used in Fibucks?
-Fibucks uses Chart.js and react-chartjs-2 for rendering charts. You can find the `TransactionChart.tsx` component in `./src/components/global/`, where chart data is passed as props to render the visualizations.
+---
 
-### 9. How do I utilize the toast notifications in the application?
-The toast notifications are managed via the `Toast.tsx` component located in `./src/components/ui/`. You can utilize the `useToast` hook from `./src/hooks/use-toast.ts` to display notifications during various state transitions (e.g., on successful form submissions or error handling).
+**Q5: Do I need to set up a database?**
 
-### 10. Where can I customize the theme of the application?
-For theme customization, you can use the `ThemeProvider.tsx
+A5: Yes, Fibucks uses `mongoose` for MongoDB interaction. Ensure that you have a MongoDB instance running and properly configured in your `src/dbConfig/dbConfig.ts` file before running the application.
+
+---
+
+**Q6: How do I configure environment variables?**
+
+A6: You can set environment variables in a `.env` file at the root of your project. Refer to the documentation provided in the repo for specific variables necessary for your application (like database connection strings, nodemailer configurations, etc.).
+
+---
+
+### Feature Usage
+
+**Q7: How do I implement forms using Fibucks?**
+
+A7: Utilize the `react-hook-form` library as demonstrated in `src/components/ui/form.tsx`. Make sure to use the `@hookform/resolvers` for validation. You can define your form fields using the `FormFields.tsx` component.
+
+---
+
+**Q8: How do I create a transaction?**
+
+A8: To create a transaction, utilize the `TransactionList.tsx` to display existing transactions and use the form related components for input. Ensure the backend routes in `src/app/api/users/transactions/route.ts` are set up to handle POST requests correctly.
+
+---
+
+**Q9: How do I implement user authentication?**
+
+A9: Fibucks includes user signup and login functionality via APIs located in `src/app/api/users/signup/route.ts` and `src/app/api/users/login/route.ts`. You should manage authentication state across your application using the provided hooks and context.
+
+---
+
+**Q10: Can I use charts to visualize transaction data?**
+
+A10: Yes! You can utilize `chart.js` and `react-chartjs-2` for data visualization. Check out the `TransactionChart.tsx` component for an example of implementing charts. Ensure you have the necessary data format as expected by Chart.js.
+
+---
+
+**Q11: Where can I find the styles and design-related components?**
+
+A11: The styles and design utilities are incorporated using Tailwind CSS. The relevant utility files can be accessed
 
 ---
 
 # Contributing
 
-## Contributing to Fibucks
+# Contributing to Fibucks
 
-Thank you for considering contributing to Fibucks! We welcome contributions of all kinds, whether it's fixing bugs, adding features, improving documentation, or more.
+Thank you for considering contributing to the Fibucks project! We welcome contributions of all shapes and sizes. To get involved, please follow these steps:
 
-### Steps to Contribute
+## Step 1: Fork the Repository
 
-#### 1. Fork the Repository
-To start contributing, you'll need to create your own fork of the Fibucks repository.
+1. Navigate to the [Fibucks GitHub repository](https://github.com/yourusername/fibucks).
+2. Click on the **Fork** button at the top right corner of the page.
+3. This will create a copy of the repository in your GitHub account.
 
-- Go to the [Fibucks GitHub repository](https://github.com/yourusername/fibucks) (replace with the actual repo link).
-- Click the "Fork" button at the top right corner of the page.
-- This creates a copy of the repository in your own GitHub account.
+## Step 2: Clone Your Fork
 
-#### 2. Clone Your Fork
-Once you have forked the repository, you need to clone it onto your local machine.
+1. Open your terminal or command prompt.
+2. Run the following command (replace `yourusername` with your GitHub username):
 
-```bash
-git clone https://github.com/yourusername/fibucks.git
-cd fibucks
-```
+   ```bash
+   git clone https://github.com/yourusername/fibucks.git
+   ```
 
-#### 3. Create a New Branch
-Before making any changes, create a new branch for your work.
+3. Navigate into the cloned directory:
 
-```bash
-git checkout -b your-feature-branch
-```
+   ```bash
+   cd fibucks
+   ```
 
-*Replace `your-feature-branch` with a descriptive name for your branch.*
+## Step 3: Set Up Development Environment
 
-#### 4. Make Changes
-Now that you're on your new branch, go ahead and make your desired changes in the codebase. Be sure to check the existing architecture, components, and data models listed under the [File Structure](#file-structure) above for reference.
+1. Install the project dependencies by running:
 
-#### 5. Install Dependencies
-If you haven't done this already, make sure to install the project dependencies by running:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm install
-```
+   Ensure that you have Node.js and npm installed on your machine.
 
-This will install all necessary packages listed under the [Dependencies](#dependencies) section.
+## Step 4: Make Changes
 
-#### 6. Test Your Changes
-Before submitting your changes, run tests to ensure everything works as expected. Make sure to write any new tests required for your changes.
+1. Create a new branch for your feature or bug fix:
 
-```bash
-npm run test
-```
+   ```bash
+   git checkout -b feature-or-bugfix-name
+   ```
 
-#### 7. Commit Your Changes
-After testing, commit your changes with a clear and concise message.
+2. Make your changes in the codebase. You can find the main source code in the `src` directory. Ensure that any changes you make follow the project's coding style and conventions.
 
-```bash
-git add .
-git commit -m "Add meaningful commit message describing your changes"
-```
+3. Test your changes to ensure everything is working correctly. If you are adding new features, make sure to add corresponding tests where necessary.
 
-#### 8. Push Your Changes
-Push your changes to your forked repository.
+## Step 5: Commit Your Changes
 
-```bash
-git push origin your-feature-branch
-```
+1. Stage your changes:
 
-#### 9. Submit a Pull Request
-- Go to the original Fibucks repository on GitHub.
-- You will see a prompt to compare changes. Click on "Compare & pull request."
-- Provide a clear description of the changes you made and why you believe they should be merged.
-- Click "Create pull request."
+   ```bash
+   git add .
+   ```
+   
+2. Commit your changes with a descriptive message:
 
-### Guidelines
-- Ensure your code adheres to existing coding conventions in the project.
-- Discuss your changes in an issue if applicable before starting your work.
-- Write meaningful commit messages.
-- Update documentation if necessary.
+   ```bash
+   git commit -m "Add detailed description of your changes"
+   ```
 
-### Need Help?
-If you have any questions or need further assistance, feel free to open an issue in the repository or reach out to the maintainers.
+## Step 6: Push Your Changes
 
-Thank you for contributing to Fibucks! We appreciate your help in making this project better.
+1. Push your changes to your forked repository:
+
+   ```bash
+   git push origin feature-or-bugfix-name
+   ```
+
+## Step 7: Submit a Pull Request
+
+1. Go to your forked repository on GitHub.
+2. You should see a prompt to create a pull request; click it.
+3. Fill in the title and description for your pull request, explaining the changes you made and why they should be merged.
+4. Submit the pull request.
+
+## Additional Information
+
+- Please ensure that your code adheres to the coding standards outlined in this repository.
+- It's a good idea to discuss larger changes with the maintainers before starting.
+- For feature requests or major changes, please open an issue first to discuss your ideas.
+
+Thank you for contributing to Fibucks! We appreciate your help in making this project better for everyone.
 
 ---
 
 # Acknowledgements
 
-# Acknowledgements
+## Acknowledgements
 
-The successful completion of the "Fibucks" project owes much to the contributions of various libraries, tools, and individuals. We would like to express our gratitude to the following:
+We would like to extend our heartfelt thanks to all the tools, libraries, and contributors that made the "Fibucks" project a success. 
 
-### Libraries & Tools
-- **React** and **ReactDOM**: For helping us build a dynamic and responsive user interface.
-- **Next.js**: The backbone of our application, enabling server-side rendering and seamless routing.
-- **Mongoose**: For facilitating our interactions with MongoDB, allowing us to manage our data models with ease.
-- **Axios**: For efficient handling of HTTP requests to our backend services.
-- **bcrypt**: For securing user passwords through hashing.
-- **Chart.js** and **react-chartjs-2**: For providing robust tools to visualize transaction data in various chart formats.
-- **Radix UI**: Including components such as dropdown menus, tabs, and toast notifications that enhanced our UI accessibility and functionality.
-- **Tailwind CSS**: For its utility-first approach in styling, enabling rapid design iteration and responsiveness.
-- **class-variance-authority** and **clsx**: For aiding in the management of our component class names for better styling practices.
-- **Zod**: For runtime validation of user input schemas, ensuring data integrity.
-- **Nodemailer**: For managing email notifications and verifications effectively.
+First and foremost, we are grateful for the following libraries, which provided essential functionality and streamlined our development process:
 
-### Contributors
-We extend our appreciation to all contributors involved in the "Fibucks" project, including those who took part in code reviews, design discussions, and documentation efforts. Your invaluable feedback and support were crucial for refining our codebase and improving the user experience.
+- **React** and **ReactDOM**: These foundational libraries allowed us to create a dynamic user interface that enhances user experience throughout the application.
+- **Next.js**: This powerful framework enabled us to build our server-rendered React application seamlessly and improved our routing and API handling capabilities.
+- **Axios**: This promise-based HTTP client simplified our API requests and helped us manage our data flow effectively.
+- **Mongoose**: We relied on this ODM library to interact with our MongoDB database, allowing for effective schema management and model creation.
+- **Zod**: This schema validation library has been indispensable for ensuring data integrity across our application.
+- **Chart.js** and **React-Chartjs-2**: These libraries empowered us to create insightful and interactive data visualizations, helping users make informed financial decisions.
+- **Tailwind CSS**: We appreciate this utility-first CSS framework for allowing us to style our application quickly and responsively.
+- **Radix UI**: The various Radix components (like **Dropdown, Select, Toast**, etc.) significantly enhanced our user interface and accessibility.
+- **bcrypt**: This library facilitated secure password hashing, ensuring user data protection.
+- **Nodemailer**: For email notifications and verification, Nodemailer provided the required functionality to integrate email services into our application.
 
-### File Structure Contributions
-Special thanks to the team members who worked diligently across the various models, components, and hooks:
-- **Models (financeSchema, userModel, transactionModel)**: For structuring and managing our application's data.
-- **Global Components (TransactionList, FormFields, Loader, etc.)**: For creating reusable UI elements that enhance our application's modularity.
-- **UI Components (toast, form, card, etc.)**: For providing consistent and cohesive user interface elements.
-- **API Routes**: For setting up the backend logic that integrates with our frontend, ensuring smooth data transactions.
+We also thank the following contributors for their efforts in writing and maintaining the code within our project structure:
 
-Lastly, we appreciate the supportive community around open-source software, which provided inspiration and solutions throughout the development of "Fibucks." Your resources and documentation were indispensable.
+- The team behind **Chai** and **Chai-Http** for providing robust testing utilities that ensured the reliability of our application.
+- The creators of **Lucide-React** for their amazing icon library, which added visual depth and clarity to our UI.
+- The **uuid** library for providing a simple way to generate unique identifiers for our transactions and users.
+- **clsx** and **class-variance-authority**: These libraries made class management and conditional styling easier and more maintainable within our components.
 
-**Thank you for your contributions to this project!**
+Lastly, we acknowledge our talented team of developers, designers, and testers whose dedication, creativity, and hard work brought Fibucks to life. We look forward to building on this foundation and continuing to innovate for our users. Thank you all for your support!
